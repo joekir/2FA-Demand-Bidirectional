@@ -1,0 +1,205 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>2FA : Demand Bi-Directional</title>
+
+		<link rel="stylesheet" href="reveal.js/css/reveal.css">
+		<link rel="stylesheet" href="css/theme/serif.css">
+    <link rel="stylesheet" href="css/reveal-override.css"/>
+
+    <!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="reveal.js/lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'reveal.js/css/print/pdf.css' : 'reveal.js/css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+        <section data-state="footer">
+					<div class="git-ribbon">
+            <p>No Gifs or Memes Inside<small>*</small>.</p>
+					</div>
+          <h2>Two-Factor Authentication: Demand Bi-Directional</h2>
+          <p><i>BSides Vancouver 2017</i></p>
+        </section>
+        <section data-state="footer">
+          <h3>TLDR;</h3>
+          <ul>
+            <li>Users</li>
+              <ul><li class="fragment fade-down">Request Bi-Directional two-factor from your authentication providers</li></ul>
+              <br/>
+            <li>Developers and Security Experts</li>
+              <ul>
+                <li class="fragment fade-down">Hardening just the server is not good enough</li>
+                <li class="fragment fade-down">Give users better tools to verify that they are actually talking with the entity that they registered the creds with!</li>
+              </ul>
+          </ul>
+        </section>
+        <section data-state="footer">
+          <section>
+            <h3>How Event based OTP schemes work</h3>
+          </section>
+          <section>
+            <h3>Counter based One-Time-Pads</h3>
+            <small><i>e.g. HOTP - counter based</i></small>
+            <br/><br/>
+            $Truncate(HMAC(secret, counter))$
+          </section>
+	  <section><div><img src="img/QRCode.png"/></div></section>
+          <section>
+            <h3>Time based One-Time-Pads</h3>
+            <br/><br/>
+            $Truncate(HMAC(secret,\lfloor{(\frac{t_{Now} - t_{Init}}{t_{Period}})}))$
+          </section>
+        </section>
+        <section data-state="footer">
+          <section>
+            <h3>What is the problem?</h3>
+          </section>
+          <section>
+            <img src="img/spoofed_flow.png"/>
+          </section>
+          <section>
+            <img src="img/spoofed_flow_2.png"/>
+            <small class="fragment fade-down"><i>This is an example of a homoglyph attack, but DNS hijack would be another example</i></small>
+          </section>
+        </section>
+        <section data-state="footer">
+          <section>
+            <h3>Did we encounter this before?</h3>
+          </section>
+        </section>
+        <section data-state="footer">
+          <h3>Demo 1 : 2FA phishing</h3>
+        </section>
+        <section data-state="footer">
+          <h3>Desired features of the solution.</h3>
+          <ul>
+            <li class="fragment fade-down">Prevents an attacker from stealing a user's credentials</li>
+              <ul>
+                <li class="fragment fade-down">DNS hijack attacks</li>
+                <li class="fragment fade-down">Homoglyph hostname attacks</li>
+              </ul>
+            <li class="fragment fade-down">Protects static inputs with variable inputs</li>
+            <li class="fragment fade-down">Technology independent<sup><small>†</small></sup></li>
+            <li class="fragment fade-down">Adds no more friction to the current user experience</li>
+          </ul>
+        </section>
+        <section data-state="footer">
+          <section> <h3>A Proposed Solution</h3> </section>
+          <section>
+            <p><a href="https://tools.ietf.org/html/rfc4226#section-9" target="_blank">RFC 4226</a> ~ December 2005</p>
+            <img src="img/HOTP_RFC_Snippet.png" width="200%"/>
+          </section>
+          <section>
+            <img src="img/veerless0.png"/>
+          </section>
+          <section>
+            <img src="img/veerless1.png"/>
+          </section>
+          <section>
+            <h3>X-Veerless-Response</h3>
+            <br/><br/>
+            $Truncate(HMAC(secret,\lfloor{(\frac{t_{Now} - t_{Init}}{t_{Period}})} || ipBlock))$
+          </section>
+          <section>
+            <img src="img/veerless2.png"/>
+          </section>
+          <section>
+            <h3>Demo 2 : <br> Veerless resisting a homoglyph attack</h3>
+          </section>
+        </section>
+        <section data-state="footer">
+          <section><h3>Design choices</h3></section>
+          <section>
+            <h3>Google Authenticator approach</h3>
+          </section>
+          <section>
+            <h3>Browser plugin approach</h3>
+          </section>
+          <section>
+            <h3>A hybrid implementation</h3>
+          </section>
+        </section>
+        <section data-state="footer">
+          <section>
+          <h3>Benefits</h3>
+          <ul>
+            <li class="fragment fade-down"><strike>Credential Phishing</strike></li>
+            <li class="fragment fade-down">Corrects the User Trust Model</li>
+          </ul>
+          </section>
+          <section>
+          <h3>Challenges</h3>
+            <ul>
+              <li class="fragment fade-down">Client needs access to DNS resolution API</li>
+              <li class="fragment fade-down">Compromises between usability and secure isolation</li>
+              <li class="fragment fade-down">User Adoption</li>
+              <ul><li class="fragment fade-down">Password only systems might be a problem</li></ul>
+            </ul>
+          </section>
+        </section>
+        <section data-state="footer">
+          <h3>Other Directions</h3>
+	  <ul>
+		<li class="fragment current-visible"><a href="https://www.miracl.com/miracl-labs/m-pin-full-technology-version-3.1" target="_blank">Miracl's M-Pin Full</a></li>
+	  	<li class="fragment current-visible"><a href="https://www.yubico.com/about/background/fido/" target="_blank">YubiKey U2F</a><div><img src="img/yubico_U2F.png"/></div></li>
+	  </ul>
+        </section>
+        <section data-state="footer">
+          <h3>Contact</h3>
+          <img src="img/rainbows.gif"/>
+          <div>
+            <small><i>*I Lied.</i></small>
+          </div>
+          <a href="https://github.com/joekir" target="_blank">@joekir</a>  
+	  <a href="https://twitter.com/JosephKirwin" target="_blank">@josephkirwin</a>
+          </div>
+          <footer>
+          </footer>
+        </section>
+			</div>
+		</div>
+
+		<script src="reveal.js/lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: false,
+				progress: false,
+				slideNumber: true,				
+				history: false,
+				hideAddressBar: true,
+				transition: 'none',
+				autoSlide: 3000,
+				autoSlideStoppable:true,
+        math: {
+            mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+            config: 'TeX-AMS_HTML-full'
+        },
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+					{ src: 'reveal.js/plugin/markdown/marked.js' },
+					{ src: 'reveal.js/plugin/markdown/markdown.js' },
+					{ src: 'reveal.js/plugin/zoom-js/zoom.js' },
+          { src: 'reveal.js/plugin/math/math.js', async: true },
+					{ src: 'reveal.js/plugin/notes/notes.js', async: true },
+					{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
