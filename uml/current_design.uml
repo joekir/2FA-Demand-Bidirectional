@@ -1,0 +1,31 @@
+@startuml
+
+skinparam backgroundColor transparent
+
+actor User
+participant "Browser/Extension" as B
+participant "Server" as S
+
+activate User
+User -> B: Requests site
+deactivate User
+activate B
+B -> S: GET
+activate S
+S -> B: X-Veerless-Init:
+activate User
+User -> B: Input username
+deactivate User
+B -> S: POST
+S -> B: X-Veerless: server_totp
+deactivate S
+B -> User: [isValid(DNS,server_totp)] client_totp
+activate User 
+User -> B: client_totp + Password
+deactivate User
+B -> S: POST username + client_totp + password
+activate S
+deactivate B
+deactivate S
+ 
+@enduml

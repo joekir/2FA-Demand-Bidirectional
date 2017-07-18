@@ -26,22 +26,19 @@
 		<div class="reveal">
 			<div class="slides">
         <section data-state="footer">
-					<div class="git-ribbon">
-            <p>No Gifs or Memes Inside<small>*</small>.</p>
-					</div>
           <h2>Two-Factor Authentication: Demand Bi-Directional</h2>
-          <p><i>BSides Vancouver 2017</i></p>
+          <p><i>BSides Las Vegas 2017</i></p>
         </section>
         <section data-state="footer">
           <h3>TLDR;</h3>
           <ul>
-            <li>Users</li>
-              <ul><li class="fragment fade-down">Request Bi-Directional two-factor from your authentication providers</li></ul>
+            <li>two-factor does:</li>
+              <ul><li class="fragment fade-down">Protect your acccount from compromise in the event of a password breach</li></ul>
               <br/>
-            <li>Developers and Security Experts</li>
+            <li>two-factor does not:</li>
               <ul>
-                <li class="fragment fade-down">Hardening just the server is not good enough</li>
-                <li class="fragment fade-down">Give users better tools to verify that they are actually talking with the entity that they registered the creds with!</li>
+                <li class="fragment fade-down">Protect you from being phished</li>
+                <li class="fragment fade-down">Protect you from confirming something out of band</li>
               </ul>
           </ul>
         </section>
@@ -55,7 +52,6 @@
             <br/><br/>
             $Truncate(HMAC(secret, counter))$
           </section>
-	  <section><div><img src="img/QRCode.png"/></div></section>
           <section>
             <h3>Time based One-Time-Pads</h3>
             <br/><br/>
@@ -81,6 +77,7 @@
         </section>
         <section data-state="footer">
           <h3>Demo 1 : 2FA phishing</h3>
+							<a href="video/hiroku.mp4" target="_blank"><img src="video/hiroku.png" width="640" height="480"/></a>
         </section>
         <section data-state="footer">
           <h3>Desired features of the solution.</h3>
@@ -91,7 +88,7 @@
                 <li class="fragment fade-down">Homoglyph hostname attacks</li>
               </ul>
             <li class="fragment fade-down">Protects static inputs with variable inputs</li>
-            <li class="fragment fade-down">Technology independent<sup><small>†</small></sup></li>
+            <li class="fragment fade-down">Technology agnostic<sup><small>†</small></sup></li>
             <li class="fragment fade-down">Adds no more friction to the current user experience</li>
           </ul>
         </section>
@@ -117,19 +114,12 @@
           </section>
           <section>
             <h3>Demo 2 : <br> Veerless resisting a homoglyph attack</h3>
+							<a href="video/veerless.mp4" target="_blank"><img src="video/veerless.png" width="640" height="480"/></a>
           </section>
         </section>
         <section data-state="footer">
-          <section><h3>Design choices</h3></section>
-          <section>
-            <h3>Google Authenticator approach</h3>
-          </section>
-          <section>
-            <h3>Browser plugin approach</h3>
-          </section>
-          <section>
-            <h3>A hybrid implementation</h3>
-          </section>
+          <section><h3>What just happened there?</h3></section>
+          <section data-background-image="uml/current_design.png" data-background-size="contain" ></section>
         </section>
         <section data-state="footer">
           <section>
@@ -150,20 +140,26 @@
           </section>
         </section>
         <section data-state="footer">
-          <h3>Other Directions</h3>
-	  <ul>
-		<li class="fragment current-visible"><a href="https://www.miracl.com/miracl-labs/m-pin-full-technology-version-3.1" target="_blank">Miracl's M-Pin Full</a></li>
-	  	<li class="fragment current-visible"><a href="https://www.yubico.com/about/background/fido/" target="_blank">YubiKey U2F</a><div><img src="img/yubico_U2F.png"/></div></li>
-	  </ul>
+					<section>
+						<h3>Future Directions</h3>
+					</section>
+					<section>
+						<h3>Extending Free-OTP</h3>
+						<a href="https://github.com/joekir/freeotp-android-veerless">https://github.com/joekir/freeotp-android-veerless</a>
+					</section>
+          <section data-background-image="uml/future_design.png" data-background-size="contain" ></section>
+					<section >
+						<h3>Push based?</h3>
+					</section>
+          <section data-background-image="uml/future_design_push.png" data-background-size="contain" ></section>
         </section>
-        <section data-state="footer">
+				<section data-state="footer">
           <h3>Contact</h3>
-          <img src="img/rainbows.gif"/>
-          <div>
-            <small><i>*I Lied.</i></small>
-          </div>
-          <a href="https://github.com/joekir" target="_blank">@joekir</a>  
-	  <a href="https://twitter.com/JosephKirwin" target="_blank">@josephkirwin</a>
+						<ul>
+							<a href="https://github.com/joekir" target="_blank">🐙😸  github.com/joekir</a> 
+							<br/> 
+							<a href="https://twitter.com/JosephKirwin" target="_blank">🐦  @josephkirwin</a>
+						</ul>
           </div>
           <footer>
           </footer>
@@ -183,8 +179,6 @@
 				history: false,
 				hideAddressBar: true,
 				transition: 'none',
-				autoSlide: 3000,
-				autoSlideStoppable:true,
         math: {
             mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
             config: 'TeX-AMS_HTML-full'

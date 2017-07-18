@@ -1,0 +1,33 @@
+@startuml
+
+skinparam backgroundColor transparent
+
+participant "Mobile" as M
+actor User
+participant "Browser/Extension" as B
+participant "Server" as S
+
+activate User
+User -> B: Requests site
+activate B
+B -> S: GET
+activate S
+S -> B: X-Veerless-Init
+User -> B: Input username
+deactivate User
+B -> S: POST
+S -> B: X-Veerless-Header: server_totp
+deactivate S
+B --> M: server_totp + browser's DNS result
+deactivate B
+activate M
+M->User: [valid(server_totp)] client_totp
+deactivate M
+activate User
+User -> B: password + client_totp
+activate B
+B->S: POST
+activate S
+deactivate B
+
+@enduml
