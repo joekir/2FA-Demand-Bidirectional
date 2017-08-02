@@ -195,6 +195,12 @@
 					{ src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
 			});
+		 Reveal.configure({
+			keyboard: {
+				37: 'prev',
+				39: 'next'
+			}
+		});
 		</script>
 	</body>
 </html>
