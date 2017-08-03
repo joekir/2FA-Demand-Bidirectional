@@ -28,6 +28,8 @@
         <section data-state="footer">
           <h2>Two-Factor Authentication: Demand Bi-Directional</h2>
           <p><i>BSides Las Vegas 2017</i></p>
+					<br/><br/>
+					<p><small><i>Please use keyboard arrows to navigate.</i></small></p>
         </section>
         <section data-state="footer">
           <h3>TLDR;</h3>
@@ -175,9 +177,9 @@
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
 				controls: false,
-				progress: false,
+				progress: true,
 				slideNumber: true,				
-				history: false,
+				history: true,
 				hideAddressBar: true,
 				transition: 'none',
         math: {
@@ -198,7 +200,9 @@
 		 Reveal.configure({
 			keyboard: {
 				37: 'prev',
-				39: 'next'
+				38: 'prev',
+				39: 'next',
+				40: 'next',
 			}
 		});
 		</script>
