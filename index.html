@@ -57,7 +57,7 @@
           <section>
             <h3>Time based One-Time-Pads</h3>
             <br/><br/>
-            $Truncate(HMAC(secret,\lfloor{(\frac{t_{Now} - t_{Init}}{t_{Period}})}))$
+            $Truncate(HMAC(secret,\lfloor{(\frac{t_{Now} - t_{Init}}{t_{Period}})}\rfloor))$
           </section>
         </section>
         <section data-state="footer">
@@ -110,7 +110,7 @@
           <section>
             <h3>X-Veerless-Response</h3>
             <br/><br/>
-            $Truncate(HMAC(secret,\lfloor{(\frac{t_{Now} - t_{Init}}{t_{Period}})} || ipBlock))$
+            $Truncate(HMAC(secret,\lfloor{(\frac{t_{Now} - t_{Init}}{t_{Period}})}\rfloor || ipBlock))$
           </section>
           <section>
             <img src="img/veerless2.png"/>
